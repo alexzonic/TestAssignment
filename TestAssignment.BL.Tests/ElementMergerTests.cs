@@ -22,9 +22,10 @@ namespace TestAssignment.BL.Tests
                 new Element(15, "Item 15")
             };
 
+            List<IElement> coll = null;
             var newItem = new Element(2, "New Item");
             var result = ElementMerger.Get().MergeElements(collection, newItem);
-
+            
             Assert.Collection(result,
                 item => checkElement(1, "Item 1", item),
                 item => checkElement(2, "New Item", item),
@@ -37,6 +38,16 @@ namespace TestAssignment.BL.Tests
                 item => checkElement(15, "Item 15", item));
         }
 
+        [Fact]
+        public void MergeWithNullCollection()
+        {
+            List<IElement> collection = null;
+            var newItem = new Element(2, "New Item");
+            var result = ElementMerger.Get().MergeElements(collection, newItem);
+            
+            Assert.Collection(result, item => checkElement(2, "New Item", item));
+        }
+        
         private void checkElement(int expectedNumber, string expectedBody, IElement actual)
         {
             Assert.Equal(expectedNumber, actual.Number);

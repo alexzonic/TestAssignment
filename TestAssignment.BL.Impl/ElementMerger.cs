@@ -14,8 +14,8 @@ namespace TestAssignment.BL.Impl
 
         public IEnumerable<IElement> MergeElements(IEnumerable<IElement> elements, IElement newElement)
         {
-            if (elements is null) return elements.Append(newElement);
-            
+            if (elements is null) return new List<IElement>().Append(newElement);
+
             var number = newElement.Number;
             
             // поиск отрезка без пропусков номеров 
@@ -31,7 +31,7 @@ namespace TestAssignment.BL.Impl
             
             foreach (var (key, value) in invalidPart)
                 result[key + 1] = value;
-
+            
             return result.OrderBy(key => key.Key).Select(pair => new Element(pair.Key, pair.Value));
         }
 
